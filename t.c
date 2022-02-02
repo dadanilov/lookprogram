@@ -18,7 +18,7 @@ void read_config(struct Rule *s, char *filename, int n)
     fscanf(fin,"%d\n",&n);
     count = n;
     for (int i = 0; i < n; i++)
-	fscanf(fin, "%d\n", &s[i].vlan);
+	fscanf(fin, "net %d.%d.%d.%d netmask %d.%d.%d.%d vlan %d\n", &s[i].net[0], &s[i].net[1],  &s[i].net[2], &s[i].net[3], &s[i].netmask[0], &s[i].netmask[1], &s[i].netmask[2], &s[i].netmask[3], &s[i].vlan);
 }
 
 int main()
@@ -28,5 +28,5 @@ int main()
     int n;
     read_config(rule, iface_config, n);
     for (int i = 0; i < count; i++)
- 	printf("%d\n", rule[i].vlan);
+ 	printf("%d %d %d %d - %d %d %d %d - %d\n", rule[i].net[0], rule[i].net[1], rule[i].net[2], rule[i].net[3], rule[i].netmask[0], rule[i].netmask[1], rule[i].netmask[2], rule[i].netmask[3], rule[i].vlan);
 }
